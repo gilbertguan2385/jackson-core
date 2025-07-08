@@ -72,7 +72,7 @@ a pure JSON library.
 #921: Add `JsonFactory.Feature.CHARSET_DETECTION` to disable charset detection
  (contributed by @yawkat) 
 #943: Add `StreamReadConstraints.maxNestingDepth()` to constraint max nesting
-  depth (default: 1000)
+  depth (default: 1000) [CVE-2025-52999]
 #948: Use `StreamConstraintsException` in name canonicalizers
  (contributed by @pjfanning)
 #962: Offer a way to directly set `StreamReadConstraints` via `JsonFactory` (not just Builder)
