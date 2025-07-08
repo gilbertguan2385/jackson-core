@@ -22,7 +22,7 @@ a pure JSON library.
  (contributed by @pjfanning)
 - Generate SBOMs [JSTEP-14]
 
-2.19.1 (not yet released)
+2.19.1 (13-Jun-2025)
 
 #1425: `JsonPointer.head()` throws `StringIndexOutOfBoundsException` for
   valid JSON Pointers
@@ -302,7 +302,7 @@ No changes since 2.16.1
 #921: Add `JsonFactory.Feature.CHARSET_DETECTION` to disable charset detection
  (contributed by @yawkat) 
 #943: Add `StreamReadConstraints.maxNestingDepth()` to constraint max nesting
-  depth (default: 1000)
+  depth (default: 1000) [CVE-2025-52999]
 #948: Use `StreamConstraintsException` in name canonicalizers
  (contributed by @pjfanning)
 #962: Offer a way to directly set `StreamReadConstraints` via `JsonFactory` (not just Builder)
