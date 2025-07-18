@@ -22,6 +22,10 @@ a pure JSON library.
  (contributed by @pjfanning)
 - Generate SBOMs [JSTEP-14]
 
+2.19.2 (18-Jul-2025)
+
+No changes since 2.19.1
+
 2.19.1 (13-Jun-2025)
 
 #1425: `JsonPointer.head()` throws `StringIndexOutOfBoundsException` for
