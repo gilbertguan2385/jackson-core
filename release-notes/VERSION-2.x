@@ -14,7 +14,7 @@ a pure JSON library.
 === Releases ===
 ------------------------------------------------------------------------
 
-2.20.0 (not yet released)
+2.20.0-rc1 (04-Aug-2025)
 
 #1438: `ParserBase.close()` does not clear `_currToken`
 #1441: Add `StreamReadFeature.CLEAR_CURRENT_TOKEN_ON_CLOSE` (default: true)
