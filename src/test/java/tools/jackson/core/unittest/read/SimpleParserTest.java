@@ -498,6 +498,7 @@ class SimpleParserTest extends JacksonCoreTestBase
     }
 
     // [core#48]
+    @SuppressWarnings("deprecation")
     @Test
     void spacesInURL() throws Exception
     {

@@ -61,6 +61,7 @@ class InputStreamInitTest
         assertTrue(jsonF.lastStream.closed);
     }
 
+    @SuppressWarnings("deprecation")
     @Test
     void forURL() throws Exception
     {
