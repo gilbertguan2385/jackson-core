@@ -496,6 +496,7 @@ class SimpleParserTest extends JUnit5TestBase
     }
 
     // [core#48]
+    @SuppressWarnings("deprecation")
     @Test
     void spacesInURL() throws Exception
     {
