@@ -648,6 +648,7 @@ public abstract class TokenStreamFactory
      *
      * @throws JacksonException If parser construction or initialization fails
      */
+    @Deprecated // since 3.0
     public abstract JsonParser createParser(ObjectReadContext readCtxt,
             URL url) throws JacksonException;
 

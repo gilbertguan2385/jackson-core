@@ -109,6 +109,7 @@ public abstract class TextualTSFactory
                 _decorate(ioCtxt, _pathInputStream(p)));
     }
 
+    @Deprecated // since 3.0
     @Override
     public JsonParser createParser(ObjectReadContext readCtxt, URL url)
         throws JacksonException
