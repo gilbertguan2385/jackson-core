@@ -2071,6 +2071,45 @@ public abstract class JsonGenerator
         }
     }
 
+    /**
+     * Same as {@link #copyCurrentStructure} with the exception that copying of numeric
+     * values tries to avoid any conversion losses; in particular for floating-point
+     * numbers. This usually matters when transcoding from textual format like JSON
+     * to a binary format.
+     * See {@link #_copyCurrentFloatValueExact} for details.
+     *
+     * @param p Parser that points to the value to copy
+     *
+     * @throws JacksonIOException if there is an underlying I/O problem (reading or writing)
+     * @throws StreamReadException for problems with decoding of token stream
+     * @throws StreamWriteException for problems in encoding token stream
+     */
+    public void copyCurrentStructureExact(JsonParser p)  throws JacksonException
+    {
+        JsonToken t = p.currentToken();
+        // Let's handle property-name separately first
+        int id = (t == null) ? ID_NOT_AVAILABLE : t.id();
+        if (id == ID_PROPERTY_NAME) {
+            writeName(p.currentName());
+            t = p.nextToken();
+            id = (t == null) ? ID_NOT_AVAILABLE : t.id();
+            // fall-through to copy the associated value
+        }
+        switch (id) {
+        case ID_START_OBJECT:
+            writeStartObject();
+            _copyCurrentContentsExact(p);
+            return;
+        case ID_START_ARRAY:
+            writeStartArray();
+            _copyCurrentContentsExact(p);
+            return;
+
+        default:
+            copyCurrentEventExact(p);
+        }
+    }
+
     protected void _copyCurrentContents(JsonParser p) throws JacksonException
     {
         int depth = 1;
@@ -2133,6 +2172,68 @@ public abstract class JsonGenerator
         }
     }
 
+    protected void _copyCurrentContentsExact(JsonParser p) throws JacksonException
+    {
+        int depth = 1;
+        JsonToken t;
+
+        // Mostly copied from `copyCurrentEventExact()`, but with added nesting counts
+        while ((t = p.nextToken()) != null) {
+            switch (t.id()) {
+            case ID_PROPERTY_NAME:
+                writeName(p.currentName());
+                break;
+
+            case ID_START_ARRAY:
+                writeStartArray();
+                ++depth;
+                break;
+
+            case ID_START_OBJECT:
+                writeStartObject();
+                ++depth;
+                break;
+
+            case ID_END_ARRAY:
+                writeEndArray();
+                if (--depth == 0) {
+                    return;
+                }
+                break;
+            case ID_END_OBJECT:
+                writeEndObject();
+                if (--depth == 0) {
+                    return;
+                }
+                break;
+
+            case ID_STRING:
+                _copyCurrentStringValue(p);
+                break;
+            case ID_NUMBER_INT:
+                _copyCurrentIntValue(p);
+                break;
+            case ID_NUMBER_FLOAT:
+                _copyCurrentFloatValueExact(p);
+                break;
+            case ID_TRUE:
+                writeBoolean(true);
+                break;
+            case ID_FALSE:
+                writeBoolean(false);
+                break;
+            case ID_NULL:
+                writeNull();
+                break;
+            case ID_EMBEDDED_OBJECT:
+                writePOJO(p.getEmbeddedObject());
+                break;
+            default:
+                throw new IllegalStateException("Internal error: unknown current token, "+t);
+            }
+        }
+    }
+    
     /**
      * Method for copying current {@link JsonToken#VALUE_NUMBER_FLOAT} value;
      * overridable by format backend implementations.
