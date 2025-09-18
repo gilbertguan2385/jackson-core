@@ -264,7 +264,7 @@ tools.jackson.core.*;version=${project.version}
         </configuration>
       </plugin>
 
-      <!-- Main Artfact build (jar) first -->
+      <!-- Main Artifact build (jar) first -->
       <plugin>
         <groupId>org.apache.maven.plugins</groupId>
         <artifactId>maven-jar-plugin</artifactId>
