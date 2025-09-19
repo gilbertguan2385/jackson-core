@@ -19,6 +19,11 @@ a pure JSON library.
 #1470: Add method `copyCurrentStructureExact()` to `JsonGenerator`
  (contributed by Lars H)
 
+2.20.1 (not yet released)
+
+#1473: Bug with Surrogates + Segments in the `UTF8JsonGenerator`
+ (fix contributed by Vitor P)
+
 2.20.0 (28-Aug-2025)
 
 #1438: `ParserBase.close()` does not clear `_currToken`
