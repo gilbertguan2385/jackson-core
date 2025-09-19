@@ -15,6 +15,10 @@ JSON library.
 === Releases ===
 ------------------------------------------------------------------------
 
+3.0.0-rc10 (19-Sep-2025)
+
+No changes since 3.0.0-rc9
+
 3.0.0-rc9 (05-Sep-2025)
 
 #1463: Remove `URL` taking factory methods of `JsonFactory` (3.0)
