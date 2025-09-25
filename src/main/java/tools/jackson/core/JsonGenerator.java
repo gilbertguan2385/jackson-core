@@ -310,6 +310,17 @@ public abstract class JsonGenerator
     public boolean canOmitProperties() { return true; }
 
     /**
+     * Accessor for checking whether this generator has specified capability.
+     * Short-hand for:
+     * {@code return getWriteCapabilities().isEnabled(capability); }
+     *
+     * @param capability Capability to check
+     *
+     * @return True if this generator has specified capability; false if not
+     */
+    public abstract boolean has(StreamWriteCapability capability);
+
+    /**
      * Accessor for getting metadata on capabilities of this generator, based on
      * underlying data format being read (directly or indirectly).
      *

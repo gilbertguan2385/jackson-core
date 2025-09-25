@@ -81,6 +81,9 @@ public class JsonGeneratorDelegate extends JsonGenerator
     public boolean canOmitProperties() { return delegate.canOmitProperties(); }
 
     @Override
+    public boolean has(StreamWriteCapability capability) { return delegate.has(capability); }
+
+    @Override
     public JacksonFeatureSet<StreamWriteCapability> streamWriteCapabilities() {
         return delegate.streamWriteCapabilities();
     }

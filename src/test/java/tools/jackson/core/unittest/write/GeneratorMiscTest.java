@@ -4,10 +4,7 @@ import java.io.*;
 
 import org.junit.jupiter.api.Test;
 
-import tools.jackson.core.JsonEncoding;
-import tools.jackson.core.JsonGenerator;
-import tools.jackson.core.JsonParser;
-import tools.jackson.core.JsonToken;
+import tools.jackson.core.*;
 import tools.jackson.core.ObjectReadContext;
 import tools.jackson.core.ObjectWriteContext;
 import tools.jackson.core.exc.StreamWriteException;
@@ -38,19 +35,19 @@ public class GeneratorMiscTest
         for (int i = 0; i < 2; ++i) {
             boolean stream = ((i & 1) == 0);
             ObjectWriteContext writeCtxt = ObjectWriteContext.empty();
-            JsonGenerator jg = stream ?
+            JsonGenerator g = stream ?
                     JSON_F.createGenerator(writeCtxt, new StringWriter())
                 : JSON_F.createGenerator(writeCtxt, new ByteArrayOutputStream(), JsonEncoding.UTF8)
                 ;
-            assertFalse(jg.isClosed());
-            jg.writeStartArray();
-            jg.writeNumber(-1);
-            jg.writeEndArray();
-            assertFalse(jg.isClosed());
-            jg.close();
-            assertTrue(jg.isClosed());
-            jg.close();
-            assertTrue(jg.isClosed());
+            assertFalse(g.isClosed());
+            g.writeStartArray();
+            g.writeNumber(-1);
+            g.writeEndArray();
+            assertFalse(g.isClosed());
+            g.close();
+            assertTrue(g.isClosed());
+            g.close();
+            assertTrue(g.isClosed());
         }
     }
 
@@ -232,6 +229,20 @@ public class GeneratorMiscTest
             fail("Expected an exception");
         } catch (StreamWriteException e) {
             verifyException(e, "No native support for");
+        }
+    }
+
+    @Test
+    void capabilitiesAccess() throws Exception {
+        try (JsonGenerator g = JSON_F.createGenerator(ObjectWriteContext.empty(), new StringWriter())) {
+            assertFalse(g.streamWriteCapabilities().isEnabled(StreamWriteCapability.CAN_WRITE_BINARY_NATIVELY));
+            assertFalse(g.has(StreamWriteCapability.CAN_WRITE_BINARY_NATIVELY));
+            assertTrue(g.has(StreamWriteCapability.CAN_WRITE_FORMATTED_NUMBERS));
+        }
+        try (JsonGenerator g = JSON_F.createGenerator(ObjectWriteContext.empty(), new ByteArrayOutputStream())) {
+            assertFalse(g.streamWriteCapabilities().isEnabled(StreamWriteCapability.CAN_WRITE_BINARY_NATIVELY));
+            assertFalse(g.has(StreamWriteCapability.CAN_WRITE_BINARY_NATIVELY));
+            assertFalse(g.has(StreamWriteCapability.CAN_WRITE_BINARY_NATIVELY));
         }
     }
 }

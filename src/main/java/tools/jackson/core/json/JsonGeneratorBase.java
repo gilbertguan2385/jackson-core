@@ -174,8 +174,13 @@ public abstract class JsonGeneratorBase extends GeneratorBase
     public boolean isEnabled(JsonWriteFeature f) { return f.enabledIn(_formatWriteFeatures); }
 
     @Override
+    public boolean has(StreamWriteCapability capability) {
+        return DEFAULT_TEXTUAL_WRITE_CAPABILITIES.isEnabled(capability);
+    }
+
+    @Override
     public JacksonFeatureSet<StreamWriteCapability> streamWriteCapabilities() {
-        return DEFAULT_WRITE_CAPABILITIES;
+        return DEFAULT_TEXTUAL_WRITE_CAPABILITIES;
     }
 
     /*
