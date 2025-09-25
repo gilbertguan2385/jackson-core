@@ -928,6 +928,8 @@ public abstract class JsonGenerator
      * @param capability Capability to check
      *
      * @return True if this generator has specified capability; false if not
+     *
+     * @since 2.21
      */
     public boolean has(StreamWriteCapability capability) {
         return getWriteCapabilities().isEnabled(capability);
