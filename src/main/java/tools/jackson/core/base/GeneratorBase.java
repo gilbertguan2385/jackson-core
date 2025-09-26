@@ -161,6 +161,11 @@ public abstract class GeneratorBase extends JsonGenerator
         return _streamWriteConstraints;
     }
 
+    @Override
+    public boolean has(StreamWriteCapability capability) {
+        return streamWriteCapabilities().isEnabled(capability);
+    }
+    
     /*
     /**********************************************************************
     /* Public API, accessors
