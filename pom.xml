@@ -8,7 +8,7 @@
   <parent>
     <groupId>tools.jackson</groupId>
     <artifactId>jackson-base</artifactId>
-    <version>3.0.0</version>
+    <version>3.0.1-SNAPSHOT</version>
   </parent>
   <groupId>tools.jackson.core</groupId>
   <artifactId>jackson-core</artifactId>
@@ -24,7 +24,8 @@
       <distribution>repo</distribution>
     </license>
   </licenses>
-  <!-- 03-Oct-2025, tatu: Should NOT be needed (available via parent -->
+  <!-- 03-Oct-2025, tatu: Should NOT be needed (available via parent) -- but seems to be
+    -->
   <developers>
     <developer>
       <id>cowtowncoder</id>
