@@ -24,7 +24,8 @@
       <distribution>repo</distribution>
     </license>
   </licenses>
-  <!-- 03-Oct-2025, tatu: Should NOT be needed (available via parent) -- but seems to be
+  <!-- 03-Oct-2025, tatu: Should NOT be needed (available via parent);
+       but seems to be
     -->
   <developers>
     <developer>
