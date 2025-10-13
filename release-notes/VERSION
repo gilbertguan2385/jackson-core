@@ -26,6 +26,7 @@ JSON library.
 #456: Add `JsonParser.readAsValue(ResolvedType)`
 #492: Ensure primitive type names in error message enclosed in backticks
 #551: Remove `JsonGenerator.setPrettyPrinter()` from 3.0
+#661: Replace checked `JsonProcessingException` with unchecked `JacksonException`
 #663: Rename `JsonEOFException` as `UnexpectedEndOfInputException`
 #668: Add `JacksonException.Reference` (demote from `JsonMappingException`/`DatabindException`)
 #670: Replace references to "field" with "property" in `JsonGenerator`, `JsonParser`, method names;
