@@ -118,7 +118,7 @@ public abstract class TokenStreamFactory
          * them, as specified by RFC 4627. When this feature is disabled the factory will assume UTF-8, as specified
          * by RFC 8259.
          *<p>
-         * NOTE: only applies to some implementations: most notable for {@code JsonFactory}.
+         * NOTE: only applies to some implementations: most notably for {@code JsonFactory}.
          */
         CHARSET_DETECTION(true),        
         ;
