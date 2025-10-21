@@ -354,6 +354,8 @@ public abstract class JsonGenerator
      * Method for accessing the object used for writing Java
      * object as JSON content
      * (using method {@link #writeObject}).
+     *<p>
+     * NOTE: removed from 3.0, replaced with {@code objectWriteContext()}
      *
      * @return Codec assigned to this generator, if any; {@code null} if none
      */
