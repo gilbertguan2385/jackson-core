@@ -488,6 +488,8 @@ public abstract class JsonParser
      * Accessor for {@link ObjectCodec} associated with this
      * parser, if any. Codec is used by {@link #readValueAs(Class)}
      * method (and its variants).
+     *<p>
+     * NOTE: removed from 3.0, replaced with {@code objectReadContext()}
      *
      * @return Codec assigned to this parser, if any; {@code null} if none
      */
