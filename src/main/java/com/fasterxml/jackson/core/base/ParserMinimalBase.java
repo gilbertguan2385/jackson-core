@@ -168,7 +168,8 @@ public abstract class ParserMinimalBase extends JsonParser
     protected long _tokenCount;
 
     /**
-     * Whether or not to track the token count due a {@link StreamReadConstraints} maxTokenCount > 0.
+     * Whether or not to track the token count due a {@link StreamReadConstraints}
+     * {@code maxTokenCount > 0}.
      *
      * @since 2.18
      */
