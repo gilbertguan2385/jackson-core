@@ -1242,7 +1242,8 @@ public class JsonFactory
     /**
      * Deprecated variant of {@link #createParser(InputStream)} 
      * no longer recommended to be used due to implementation
-     * problems like {@href "https://github.com/FasterXML/jackson-core/issues/803"}.
+     * problems like
+     * <a href="https://github.com/FasterXML/jackson-core/issues/803">core#803</a>.
      *
      * @param url URL pointing to resource that contains JSON content to parse
      *
