@@ -55,11 +55,8 @@ No changes since 2.19.1
  (requested by Ilenia S)
  (fixed by @pjfanning)
 
-2.18.5 (not yet released)
-
--
-
-2.18.4.1 (10-June-2025)
+2.18.5 (27-Oct-2025)
+ (same as 2.18.4.1 on 10-June-2025)
 
 #1433: `JsonParser#getNumberType()` throws `JsonParseException` when
   the current token is non-numeric instead of returning null
