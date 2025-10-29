@@ -28,6 +28,7 @@ a pure JSON library.
 #1462: Deprecate `URL`-taking factory method of `JsonFactory`
 - Generate SBOMs [JSTEP-14]
 
+2.19.4 (29-Oct-2025)
 2.19.3 (29-Oct-2025)
 2.19.2 (18-Jul-2025)
 
