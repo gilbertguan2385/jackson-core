@@ -3641,6 +3641,13 @@ public class UTF8StreamJsonParser
          * regular Java identifier character rules. It's just a heuristic,
          * nothing fancy here (nor fast).
          */
+        // [core#1180]: Construct JsonLocation at token start BEFORE _loadMore() may change buffer state
+        final int tokenStartPtr = _inputPtr - matchedPart.length();
+        final int col = tokenStartPtr - _currInputRowStart + 1; // 1-based
+        final JsonLocation loc = new JsonLocation(_contentReference(),
+                _currInputProcessed + tokenStartPtr, -1L, // bytes, chars
+                _currInputRow, col);
+
         StringBuilder sb = new StringBuilder(matchedPart);
         while ((_inputPtr < _inputEnd) || _loadMore()) {
             int i = _inputBuffer[_inputPtr++];
@@ -3659,7 +3666,8 @@ public class UTF8StreamJsonParser
                 break;
             }
         }
-        _reportError("Unrecognized token '%s': was expecting %s", sb, msg);
+        final String fullMsg = String.format("Unrecognized token '%s': was expecting %s", sb, msg);
+        throw _constructReadException(fullMsg, loc);
     }
 
     protected void _reportInvalidChar(int c) throws JsonParseException
