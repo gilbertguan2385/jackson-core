@@ -4,6 +4,8 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
+import org.junit.jupiter.api.Test;
+
 import tools.jackson.core.sym.BinaryNameMatcher;
 import tools.jackson.core.unittest.JacksonCoreTestBase;
 
@@ -11,6 +13,7 @@ import static org.junit.jupiter.api.Assertions.*;
 
 public class BinaryNameMatcherTest extends JacksonCoreTestBase
 {
+    @Test
     public void testSmallMatching()
     {
         // First small (1 - 4)
@@ -19,6 +22,7 @@ public class BinaryNameMatcherTest extends JacksonCoreTestBase
         _testMatching("first", "secondlong", "3rd");
     }
 
+    @Test
     public void testMediumMatching()
     {
         _testMatching("a", "bcd", "Fittipaldi", "goober");
@@ -32,6 +36,7 @@ public class BinaryNameMatcherTest extends JacksonCoreTestBase
                 "subjectNames", "topicNames", "topicSubTopics", "venueNames", "events", "performances");
     }
 
+    @Test
     public void testLargeMatching()
     {
         // And then generate even bigger
