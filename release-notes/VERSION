@@ -21,6 +21,10 @@ JSON library.
 
 3.0.2 (not yet released)
 
+#363: UTF-8 decoding should fail on Surrogate characters (0xD800 - 0xDFFF)
+ (fix by @cowtowncoder, w/ Claude code)
+#1180: `JsonLocation` off for unrecognized tokens
+ (fix by @cowtowncoder, w/ Claude code)
 #1491: Mismatched property name for byte-backed `JsonParser.nextNameMatch(PropertyNameMatcher)`
  (fix by @cowtowncoder, w/ Claude code)
 
