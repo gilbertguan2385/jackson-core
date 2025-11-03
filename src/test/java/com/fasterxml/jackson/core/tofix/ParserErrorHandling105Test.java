@@ -3,6 +3,7 @@ package com.fasterxml.jackson.core.tofix;
 import org.junit.jupiter.api.Test;
 
 import com.fasterxml.jackson.core.*;
+import com.fasterxml.jackson.core.exc.StreamReadException;
 import com.fasterxml.jackson.core.testutil.failure.JacksonTestFailureExpected;
 
 import static org.junit.jupiter.api.Assertions.fail;
@@ -53,7 +54,7 @@ class ParserErrorHandling105Test
             assertToken(JsonToken.START_ARRAY, p.nextToken());
             JsonToken t = p.nextToken();
             fail("Should have gotten an exception; instead got token: "+t);
-        } catch (JsonParseException e) {
+        } catch (StreamReadException e) {
             verifyException(e, "expected space");
         }
     }
@@ -64,7 +65,7 @@ class ParserErrorHandling105Test
             assertToken(JsonToken.START_ARRAY, p.nextToken());
             JsonToken t = p.nextToken();
             fail("Should have gotten an exception; instead got token: "+t);
-        } catch (JsonParseException e) {
+        } catch (StreamReadException e) {
             verifyException(e, "expected space");
         }
     }

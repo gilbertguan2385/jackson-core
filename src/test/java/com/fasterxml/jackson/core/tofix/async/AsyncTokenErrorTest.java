@@ -6,6 +6,7 @@ import org.junit.jupiter.api.Test;
 
 import com.fasterxml.jackson.core.*;
 import com.fasterxml.jackson.core.async.AsyncTestBase;
+import com.fasterxml.jackson.core.exc.StreamReadException;
 import com.fasterxml.jackson.core.testsupport.AsyncReaderWrapper;
 import com.fasterxml.jackson.core.testutil.failure.JacksonTestFailureExpected;
 
@@ -49,7 +50,7 @@ class AsyncTokenErrorTest extends AsyncTestBase
             assertToken(JsonToken.FIELD_NAME, p.nextToken());
             p.nextToken();
             fail("Expected an exception for malformed value keyword");
-        } catch (JsonParseException jex) {
+        } catch (StreamReadException jex) {
             verifyException(jex, EXP_MAIN, EXP_ALT);
         }
 
@@ -58,7 +59,7 @@ class AsyncTokenErrorTest extends AsyncTestBase
         try (AsyncReaderWrapper p = _createParser(doc)) {
             p.nextToken();
             fail("Expected an exception for malformed value keyword");
-        } catch (JsonParseException jex) {
+        } catch (StreamReadException jex) {
             verifyException(jex, EXP_MAIN, EXP_ALT);
         }
     }
@@ -70,7 +71,7 @@ class AsyncTokenErrorTest extends AsyncTestBase
         try (AsyncReaderWrapper p = _createParser("123true")) {
             JsonToken t = p.nextToken();
             fail("Should have gotten an exception; instead got token: "+t+"; number: "+p.getNumberValue());
-        } catch (JsonParseException e) {
+        } catch (StreamReadException e) {
             verifyException(e, "expected space");
         }
     }
@@ -83,7 +84,7 @@ class AsyncTokenErrorTest extends AsyncTestBase
         try (AsyncReaderWrapper p = _createParser("1.5false")) {
             JsonToken t = p.nextToken();
             fail("Should have gotten an exception; instead got token: "+t+"; number: "+p.getNumberValue());
-        } catch (JsonParseException e) {
+        } catch (StreamReadException e) {
             verifyException(e, "expected space");
         }
     }
@@ -96,7 +97,7 @@ class AsyncTokenErrorTest extends AsyncTestBase
             assertToken(JsonToken.START_ARRAY, p.nextToken());
             JsonToken t = p.nextToken();
             fail("Should have gotten an exception; instead got token: "+t);
-        } catch (JsonParseException e) {
+        } catch (StreamReadException e) {
             verifyException(e, "expected space");
         }
     }
@@ -109,7 +110,7 @@ class AsyncTokenErrorTest extends AsyncTestBase
             assertToken(JsonToken.START_ARRAY, p.nextToken());
             JsonToken t = p.nextToken();
             fail("Should have gotten an exception; instead got token: "+t);
-        } catch (JsonParseException e) {
+        } catch (StreamReadException e) {
             verifyException(e, "expected space");
         }
     }
