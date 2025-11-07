@@ -24,7 +24,7 @@ JSON library.
   with missing space
  (fix by @cowtowncoder, w/ Claude code)
 
-3.0.2 (not yet released)
+3.0.2 (07-Nov-2025)
 
 #363: UTF-8 decoding should fail on Surrogate characters (0xD800 - 0xDFFF)
  (fix by @cowtowncoder, w/ Claude code)
