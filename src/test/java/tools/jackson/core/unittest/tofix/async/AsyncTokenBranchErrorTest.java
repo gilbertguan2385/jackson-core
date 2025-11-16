@@ -11,7 +11,9 @@ import tools.jackson.core.unittest.testutil.failure.JacksonTestFailureExpected;
 
 import static org.junit.jupiter.api.Assertions.fail;
 
-class AsyncParserNonRootTokenTest extends AsyncTestBase
+// Tests for handling token decoding fails for non-Root values
+// (within Object / Array)
+class AsyncTokenBranchErrorTest extends AsyncTestBase
 {
     private final JsonFactory JSON_F = newStreamFactory();
 
@@ -47,6 +49,15 @@ class AsyncParserNonRootTokenTest extends AsyncTestBase
         try (AsyncReaderWrapper p = _createParser(doc)) {
             assertToken(JsonToken.START_OBJECT, p.nextToken());
             assertToken(JsonToken.PROPERTY_NAME, p.nextToken());
+            p.nextToken();
+            fail("Expected an exception for malformed value keyword");
+        } catch (StreamReadException jex) {
+            verifyException(jex, EXP_MAIN, EXP_ALT);
+        }
+
+        // Try as root-level value as well:
+        doc = value + " "; // may need space after for DataInput
+        try (AsyncReaderWrapper p = _createParser(doc)) {
             p.nextToken();
             fail("Expected an exception for malformed value keyword");
         } catch (StreamReadException jex) {
