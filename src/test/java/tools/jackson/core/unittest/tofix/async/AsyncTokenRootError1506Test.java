@@ -11,8 +11,9 @@ import tools.jackson.core.testutil.failure.JacksonTestFailureExpected;
 
 import static org.junit.jupiter.api.Assertions.fail;
 
+// [core#1506]: Fix in 3.1, failing in 2.x, 3.0
 // Tests for handling token decoding fails for Root values
-class AsyncTokenRootErrorTest extends AsyncTestBase
+class AsyncTokenRootError1506Test extends AsyncTestBase
 {
     private final JsonFactory JSON_F = newStreamFactory();
 
