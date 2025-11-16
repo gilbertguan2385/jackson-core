@@ -1,7 +1,5 @@
 package com.fasterxml.jackson.core.tofix.async;
 
-import java.io.IOException;
-
 import org.junit.jupiter.api.Test;
 
 import com.fasterxml.jackson.core.*;
@@ -12,8 +10,9 @@ import com.fasterxml.jackson.core.testutil.failure.JacksonTestFailureExpected;
 
 import static org.junit.jupiter.api.Assertions.fail;
 
+// [core#1506]: Fix in 3.1, failing (left) for 2.x
 // Tests for handling token decoding fails for Root values
-class AsyncTokenRootErrorTest extends AsyncTestBase
+class AsyncTokenRootError1506Test extends AsyncTestBase
 {
     private final JsonFactory JSON_F = newStreamFactory();
 
@@ -42,7 +41,7 @@ class AsyncTokenRootErrorTest extends AsyncTestBase
         }
     }
 
-    private AsyncReaderWrapper _createParser(String doc) throws IOException
+    private AsyncReaderWrapper _createParser(String doc) throws Exception
     {
         return asyncForBytes(JSON_F, 1, _jsonDoc(doc), 1);
     }
