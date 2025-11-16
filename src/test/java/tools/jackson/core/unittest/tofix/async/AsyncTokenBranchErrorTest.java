@@ -11,7 +11,9 @@ import tools.jackson.core.unittest.async.AsyncTestBase;
 
 import static org.junit.jupiter.api.Assertions.fail;
 
-class AsyncTokenErrorTest extends AsyncTestBase
+// Tests for handling token decoding fails for non-Root values
+// (within Object / Array)
+class AsyncTokenBranchErrorTest extends AsyncTestBase
 {
     private final JsonFactory JSON_F = newStreamFactory();
 
@@ -60,31 +62,6 @@ class AsyncTokenErrorTest extends AsyncTestBase
             fail("Expected an exception for malformed value keyword");
         } catch (StreamReadException jex) {
             verifyException(jex, EXP_MAIN, EXP_ALT);
-        }
-    }
-    
-    @JacksonTestFailureExpected
-    @Test
-    void mangledRootInts() throws Exception
-    {
-        try (AsyncReaderWrapper p = _createParser("123true")) {
-            JsonToken t = p.nextToken();
-            fail("Should have gotten an exception; instead got token: "+t+"; number: "+p.getNumberValue());
-        } catch (StreamReadException e) {
-            verifyException(e, "expected space");
-        }
-    }
-
-    @JacksonTestFailureExpected
-    @Test
-    void mangledRootFloats() throws Exception
-    {
-        // Also test with floats
-        try (AsyncReaderWrapper p = _createParser("1.5false")) {
-            JsonToken t = p.nextToken();
-            fail("Should have gotten an exception; instead got token: "+t+"; number: "+p.getNumberValue());
-        } catch (StreamReadException e) {
-            verifyException(e, "expected space");
         }
     }
 
