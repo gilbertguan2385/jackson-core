@@ -17,6 +17,13 @@ class ParserErrorHandling105Test
     @JacksonTestFailureExpected
     @Test
     void mangledIntsBytes() throws Exception {
+        _testMangledNonRootInts(MODE_INPUT_STREAM);
+        _testMangledNonRootInts(MODE_INPUT_STREAM_THROTTLED);
+    }
+
+    @JacksonTestFailureExpected
+    @Test
+    void mangledIntsDataInput() throws Exception {
         // 02-Jun-2017, tatu: Fails to fail; should check whether this is expected
         //   (since DataInput can't do look-ahead)
         _testMangledNonRootInts(MODE_DATA_INPUT);
@@ -24,17 +31,21 @@ class ParserErrorHandling105Test
 
     @JacksonTestFailureExpected
     @Test
-    void mangledFloatsBytes() throws Exception {
-//        _testMangledNonRootFloats(MODE_INPUT_STREAM);
-//        _testMangledNonRootFloats(MODE_INPUT_STREAM_THROTTLED);
-
-        _testMangledNonRootFloats(MODE_DATA_INPUT);
+    void mangledIntsChars() throws Exception {
+        _testMangledNonRootInts(MODE_READER);
     }
 
     @JacksonTestFailureExpected
     @Test
-    void mangledIntsChars() throws Exception {
-        _testMangledNonRootInts(MODE_READER);
+    void mangledFloatsBytes() throws Exception {
+        _testMangledNonRootFloats(MODE_INPUT_STREAM);
+        _testMangledNonRootFloats(MODE_INPUT_STREAM_THROTTLED);
+    }
+
+    @JacksonTestFailureExpected
+    @Test
+    void mangledFloatsDataInput() throws Exception {
+        _testMangledNonRootFloats(MODE_DATA_INPUT);
     }
 
     @JacksonTestFailureExpected
