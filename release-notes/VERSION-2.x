@@ -31,6 +31,8 @@ a pure JSON library.
 #1477: Add `JsonGenerator.has(StreamWriteCapability)` convenience method
 #1500: Add checks for surrogate pairing for UTF-8 generation
  (fix by @cowtowncoder, w/ Claude code)
+#1512: Number-parsing fix for `UTF8DataInputJsonParser`
+ (reported by @ventusfortis)
 - Add shading for FastDoubleParser JDK 23 class overrides
 
 2.20.1 (30-Oct-2025)
