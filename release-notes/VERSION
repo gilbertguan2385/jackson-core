@@ -19,6 +19,11 @@ JSON library.
 
 -
 
+3.0.3 (28-Nov-2025)
+
+#1418: `TokenFilter#includeEmptyArray()` causes an error in some cases where
+  an object element is filtered
+
 3.0.2 (07-Nov-2025)
 
 #363: UTF-8 decoding should fail on Surrogate characters (0xD800 - 0xDFFF)
