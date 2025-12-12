@@ -148,15 +148,22 @@ jobs:
           BASE_COVERAGE=$(parse_coverage "base-coverage/jacoco.csv" 4 5)
           BASE_BRANCHES=$(parse_coverage "base-coverage/jacoco.csv" 6 7)
 
+          echo "DEBUG: Current coverage: ${COVERAGE}%, branches: ${BRANCHES}%"
+          echo "DEBUG: Base coverage: ${BASE_COVERAGE}%, branches: ${BASE_BRANCHES}%"
+
           if [ -n "$BASE_COVERAGE" ] && [ -n "$BASE_BRANCHES" ]; then
             COV_DELTA=$(awk -v curr="$COVERAGE" -v base="$BASE_COVERAGE" 'BEGIN { printf "%.3f", curr - base }')
             BR_DELTA=$(awk -v curr="$BRANCHES" -v base="$BASE_BRANCHES" 'BEGIN { printf "%.3f", curr - base }')
+
+            echo "DEBUG: Coverage delta: ${COV_DELTA}%, branches delta: ${BR_DELTA}%"
 
             IFS='|' read -r COV_DELTA_STR COV_DELTA_EMOJI <<< "$(format_delta "$COV_DELTA")"
             IFS='|' read -r BR_DELTA_STR BR_DELTA_EMOJI <<< "$(format_delta "$BR_DELTA")"
 
             HAS_DELTA=true
           fi
+        else
+          echo "No base branch coverage artifact found"
         fi
 
         # Determine badge colors
@@ -180,7 +187,7 @@ jobs:
 
         $COVERAGE_TABLE
 
-        > Overall project coverage from JaCoCo test results
+        > Overall project coverage from JaCoCo test results. Change values compare against the latest base branch build.
 
         <!-- jacoco-coverage-comment -->"
 
