@@ -86,24 +86,15 @@ jobs:
         name: jacoco-report
         path: target/site/jacoco/jacoco.csv
         retention-days: 30
-    - name: Find base branch workflow run
-      if: ${{ matrix.release_build && github.event_name == 'pull_request' }}
-      id: base-run
-      continue-on-error: true
-      run: |
-        RUN_ID=$(gh api "repos/${{ github.repository }}/actions/workflows/main.yml/runs?branch=${{ github.event.pull_request.base.ref }}&status=success&per_page=1" --jq '.workflow_runs[0].id')
-        echo "run-id=$RUN_ID" >> $GITHUB_OUTPUT
-      env:
-        GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
     - name: Download base branch coverage
-      if: ${{ matrix.release_build && github.event_name == 'pull_request' && steps.base-run.outputs.run-id != '' }}
-      uses: actions/download-artifact@v4
+      if: ${{ matrix.release_build && github.event_name == 'pull_request' }}
+      uses: dawidd6/action-download-artifact@v6
       continue-on-error: true
       with:
+        workflow: main.yml
+        branch: ${{ github.event.pull_request.base.ref }}
         name: jacoco-report
         path: base-coverage/
-        run-id: ${{ steps.base-run.outputs.run-id }}
-        github-token: ${{ secrets.GITHUB_TOKEN }}
     - name: Generate coverage summary
       if: ${{ matrix.release_build && github.event_name == 'pull_request' }}
       id: jacoco
@@ -121,9 +112,13 @@ jobs:
           local csv_file=$1 col_missed=$2 col_covered=$3
           awk -F',' -v m="$col_missed" -v c="$col_covered" \
             'NR>1 && $1=="Jackson-core" {
-              missed=$m; covered=$c;
-              if (missed + covered > 0) printf "%.2f", (covered * 100.0) / (missed + covered)
-            }' "$csv_file" | head -1
+              total_missed += $m;
+              total_covered += $c;
+            }
+            END {
+              if (total_missed + total_covered > 0)
+                printf "%.2f", (total_covered * 100.0) / (total_missed + total_covered)
+            }' "$csv_file"
         }
 
         format_delta() {
